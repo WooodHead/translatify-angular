@@ -1,0 +1,6 @@
+.translation:hover {
+  background-color: cyan;
+}
+.translation:active {
+  background-color: blue;
+}

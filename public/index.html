@@ -1,0 +1,49 @@
+<!doctype html>
+<html ng-app="translatify">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translatify Angular</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.js"></script>
+    <script src="dictionaries.js"></script>
+    <script src="translatify.js"></script>
+  </head>
+  <body>
+    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3" style="margin-top: 40px; font-size: 30px;"> 
+      <div ng-controller="translatifyCtrl">
+        <span ng-hide="state.translations" id="root">你好，我是布莱恩。你叫什么名字？</span>
+        <span ng-show="state.translations" ng-repeat="translation in state.translations"><!--
+          --><span
+            ng-if="isTranslation(translation)"
+            data-toggle="tooltip"
+            title="{{ '[' + translation.pronunciation + '] ' + translation.meaning }}"
+            class="translation"
+            ng-click="saveTranslation(translation)">{{ translation.word }}</span><!--
+        --><span ng-if="isString(translation)">{{ translation }}</span><!--
+        --></span>
+        <table ng-show="state.wordList.length > 0" class="table table-condensed table-hover" style="font-size: 15px;">
+          <thead>
+            <tr>
+              <th>Word</th>
+              <th>Pronunciation</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="word in state.wordList">
+              <td>{{ word }}</td>
+              <td>{{ lookup(dictionaries, word).pronunciation }}</td>
+              <td>{{ lookup(dictionaries, word).meaning }}</td>
+              <td><button ng-click="removeEntry($index)">&times;</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
