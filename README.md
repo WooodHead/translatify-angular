@@ -1,2 +1,1 @@
-# translatify-react
 # translatify-angular
